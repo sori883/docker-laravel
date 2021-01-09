@@ -49,12 +49,12 @@ Read this [Wiki](https://github.com/ucan-lab/docker-laravel/wiki).
 ### db container
 
 - Base image
-  - [mysql](https://hub.docker.com/_/mysql):8.0
+  - [postgresql](https://hub.docker.com/_/postgres):12
 
-#### Persistent MySQL Storage
+#### Persistent PostgreSQL Storage
 
-By default, the [named volume](https://docs.docker.com/compose/compose-file/#volumes) is mounted, so MySQL data remains even if the container is destroyed.
-If you want to delete MySQL data intentionally, execute the following command.
+By default, the [named volume](https://docs.docker.com/compose/compose-file/#volumes) is mounted, so PostgreSQL data remains even if the container is destroyed.
+If you want to delete PostgreSQL data intentionally, execute the following command.
 
 ```bash
 $ docker-compose down -v && docker-compose up
