@@ -20,7 +20,7 @@ $ make install-recommend-packages # Not required
 
 http://localhost
 
-Read this [Makefile](https://github.com/ucan-lab/docker-laravel/blob/master/Makefile).
+Read this [Makefile](https://github.com/sori883/docker-laravel/blob/main/Makefile).
 
 ## Tips
 
@@ -40,6 +40,7 @@ Read this [Wiki](https://github.com/ucan-lab/docker-laravel/wiki).
 - Base image
   - [php](https://hub.docker.com/_/php):7.4-fpm-buster
   - [composer](https://hub.docker.com/_/composer):2.0
+  - [xDebug](https://xdebug.org/):3
 
 ### web container
 
