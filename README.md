@@ -31,7 +31,8 @@ Read this [Wiki](https://github.com/ucan-lab/docker-laravel/wiki).
 ```bash
 ├── app
 ├── web
-└── db
+├── db
+└── mail
 ```
 
 ### app container
@@ -51,6 +52,12 @@ Read this [Wiki](https://github.com/ucan-lab/docker-laravel/wiki).
 - Base image
   - [postgresql](https://hub.docker.com/_/postgres):12
 
+  
+### mail container
+
+- Base image
+  - [mailhog](https://hub.docker.com/r/mailhog/mailhog/)
+
 #### Persistent PostgreSQL Storage
 
 By default, the [named volume](https://docs.docker.com/compose/compose-file/#volumes) is mounted, so PostgreSQL data remains even if the container is destroyed.
@@ -60,7 +67,7 @@ If you want to delete PostgreSQL data intentionally, execute the following comma
 $ docker-compose down -v && docker-compose up
 ```
 
-### Debug
+#### Debug on VSCode
 If you have changed the Laravel directory, please also change the pathMappings in launch.json.  
 ```launch.json
 "pathMappings": {
@@ -68,8 +75,8 @@ If you have changed the Laravel directory, please also change the pathMappings i
 },
 ```
 
-### PHPUnit Coverage
-If you use PHPUnit's Coverage, please change the debug.mode in Composer.json script.
+#### PHPUnit Coverage
+If you use PHPUnit's Coverage, please change the debug.mode in composer.json script.
 ```
 "scripts": {
     "test:coverage": [
