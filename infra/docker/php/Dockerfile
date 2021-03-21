@@ -1,6 +1,7 @@
 FROM php:7.4-fpm-buster
-LABEL maintainer="ucan-lab <yes@u-can.pro>"
+LABEL maintainer="sorinaji <hello@sori883.com>"
 SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
+
 
 # timezone environment
 ENV TZ=UTC \
@@ -18,6 +19,8 @@ RUN apt-get update && \
   apt-get -y install git libicu-dev libonig-dev libpq-dev libzip-dev unzip locales && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
+  pecl install xdebug && \
+  docker-php-ext-enable xdebug && \
   locale-gen en_US.UTF-8 && \
   localedef -f UTF-8 -i en_US en_US.UTF-8 && \
   mkdir /var/run/php-fpm && \

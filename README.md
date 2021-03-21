@@ -59,3 +59,21 @@ If you want to delete PostgreSQL data intentionally, execute the following comma
 ```bash
 $ docker-compose down -v && docker-compose up
 ```
+
+### Debug
+If you have changed the Laravel directory, please also change the pathMappings in launch.json.  
+```launch.json
+"pathMappings": {
+    "/work/backend": "Your Laravel Directory"
+},
+```
+
+### PHPUnit Coverage
+If you use PHPUnit's Coverage, please change the debug.mode in Composer.json script.
+```
+"scripts": {
+    "test:coverage": [
+        "export XDEBUG_MODE=coverage && phpunit --coverage-html coverage"
+    ]
+}
+```

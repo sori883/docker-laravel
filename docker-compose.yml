@@ -13,7 +13,7 @@ services:
     environment:
       - DB_CONNECTION=pgsql
       - DB_HOST=db
-      - DB_PORT=5432
+      - DB_PORT=${DB_PORT:-5432}
       - DB_DATABASE=${DB_NAME:-laravel_local}
       - DB_USERNAME=${DB_USER:-phper}
       - DB_PASSWORD=${DB_PASS:-secret}
@@ -38,6 +38,9 @@ services:
     build:
       context: .
       dockerfile: ./infra/docker/postgresql/Dockerfile
+      args:
+        - DB_USER=${DB_USER:-phper}
+        - DB_NAME=${DB_NAME:-laravel_local}
     ports:
       - ${DB_PORT:-5432}:5432
     volumes:
@@ -49,6 +52,8 @@ services:
       - POSTGRES_ROOT_PASSWORD=${DB_PASS:-secret}
 
   mail:
-    image: mailhog/mailhog
+    build:
+      context: .
+      dockerfile: ./infra/docker/mailhog/Dockerfile
     ports:
       - ${MAIL_PORT}:8025
