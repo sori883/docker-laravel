@@ -15,60 +15,61 @@ Build a simple laravel development environment with docker-compose.
 $ git clone git@github.com:ucan-lab/docker-laravel.git
 $ cd docker-laravel
 $ make create-project # Install the latest Laravel project
-$ make install-recommend-packages # Not required
+$ make install-recommend-packages # Optional
 ```
 
 http://localhost
 
-Read this [Makefile](https://github.com/sori883/docker-laravel/blob/main/Makefile).
-
 ## Tips
 
-Read this [Wiki](https://github.com/ucan-lab/docker-laravel/wiki).
+- Read this [Makefile](https://github.com/ucan-lab/docker-laravel/blob/main/Makefile).
+- Read this [Wiki](https://github.com/ucan-lab/docker-laravel/wiki).
 
-## Container structure
+## Container structures
 
 ```bash
 ├── app
 ├── web
 ├── db
-└── mail
+├── mail
+├── cache
+└── s3
 ```
 
 ### app container
 
 - Base image
-  - [php](https://hub.docker.com/_/php):7.4-fpm-buster
-  - [composer](https://hub.docker.com/_/composer):2.0
-  - [xDebug](https://xdebug.org/):3
+  - [php](https://hub.docker.com/_/php):8.0-fpm-bullseye
+  - [composer](https://hub.docker.com/_/composer):2.1
 
 ### web container
 
 - Base image
-  - [nginx](https://hub.docker.com/_/nginx):1.18-alpine
-  - [node](https://hub.docker.com/_/node):14.2-alpine
+  - [nginx](https://hub.docker.com/_/nginx):1.20-alpine
+  - [node](https://hub.docker.com/_/node):16-alpine
 
 ### db container
 
 - Base image
-  - [postgresql](https://hub.docker.com/_/postgres):12
+  - [mysql/mysql-server](https://hub.docker.com/r/mysql/mysql-server):8.0
 
-  
 ### mail container
 
 - Base image
-  - [mailhog](https://hub.docker.com/r/mailhog/mailhog/)
+  - [mail/mailhog](https://hub.docker.com/r/mailhog/mailhog)
 
-#### Persistent PostgreSQL Storage
+### cache container
 
-By default, the [named volume](https://docs.docker.com/compose/compose-file/#volumes) is mounted, so PostgreSQL data remains even if the container is destroyed.
-If you want to delete PostgreSQL data intentionally, execute the following command.
+- Base image
+  - [redis](https://hub.docker.com/_/redis):6.2-alpine
 
-```bash
-$ docker-compose down -v && docker-compose up
-```
+### s3 container
 
-#### Debug on VSCode
+- Base image
+  - [minio/minio](https://hub.docker.com/r/minio/minio)
+
+
+### Debug on VSCode
 If you have changed the Laravel directory, please also change the pathMappings in launch.json.  
 ```launch.json
 "pathMappings": {

@@ -1,7 +1,6 @@
-FROM php:7.4-fpm-buster
-LABEL maintainer="sorinaji <hello@sori883.com>"
+FROM php:8.0-fpm-bullseye
+LABEL maintainer="ucan-lab <yes@u-can.pro>"
 SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
-
 
 # timezone environment
 ENV TZ=UTC \
@@ -13,18 +12,19 @@ ENV TZ=UTC \
   COMPOSER_ALLOW_SUPERUSER=1 \
   COMPOSER_HOME=/composer
 
-COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.1.9 /usr/bin/composer /usr/bin/composer
 
 RUN apt-get update && \
-  apt-get -y install git libicu-dev libonig-dev libpq-dev libzip-dev unzip locales && \
+  apt-get -y install git libicu-dev libonig-dev libzip-dev unzip locales && \
   apt-get clean && \
-  rm -rf /var/lib/apt/lists/* && \
   pecl install xdebug && \
   docker-php-ext-enable xdebug && \
+  git clone https://github.com/phpredis/phpredis.git /usr/src/php/ext/redis && \
+  rm -rf /var/lib/apt/lists/* && \
   locale-gen en_US.UTF-8 && \
   localedef -f UTF-8 -i en_US en_US.UTF-8 && \
   mkdir /var/run/php-fpm && \
-  docker-php-ext-install intl pdo_pgsql zip bcmath && \
+  docker-php-ext-install intl pdo_mysql zip bcmath redis && \
   composer config -g process-timeout 3600 && \
   composer config -g repos.packagist composer https://packagist.org
 
